@@ -6,4 +6,5 @@ const projectarray=[];
 
 form?.addEventListener("submit", async(event: SubmitEvent){
   event.preventDefault();
+  
 })
