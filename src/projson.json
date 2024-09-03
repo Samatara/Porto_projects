@@ -1,16 +1,16 @@
 {
     "projects": [
       {
-        "id": 1,
-        "title": "Project A",
+        
+        "name": "Project A",
         "description": "This is the first project.",
-        "status": "In progress"
+  
       },
       {
-        "id": 2,
-        "title": "Project B",
+        
+        "name": "Project B",
         "description": "This is the second project.",
-        "status": "Completed"
+        
       }
     ]
   }
