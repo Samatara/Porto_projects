@@ -10,20 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   fetch('projson.json')
-      .then(response => response.json())
-      .then(jsdata => {
-          jsdata.projects.forEach((project: Project) => {
-              const pro_div = document.createElement('div');
-              const p_title = document.createElement('h2');
-              p_title.textContent = project.name;
-              const p_description = document.createElement('p');
-              p_description.textContent = project.description;
+  .then(response => response.json())
+  .then(jsdata => {
+      jsdata.projects.forEach((project: Project) => {
+          const pro_div = document.createElement('div');
+          const p_title = document.createElement('h2');
+          p_title.textContent = project.name;
+          const p_description = document.createElement('p');
+          p_description.textContent = project.description;
 
-              pro_div.appendChild(p_title);
-              pro_div.appendChild(p_description);
-              pro_list.appendChild(pro_div);
-          });
+          pro_div.appendChild(p_title);
+          pro_div.appendChild(p_description);
+          pro_list.appendChild(pro_div);
       });
+  });
 
   form.addEventListener('submit', async (event: Event) => {
       event.preventDefault();
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const response = await fetch('projson.json', {
               method: 'POST',
               headers: {
-                  'Content-Type': 'application/json',
+                  'Content-Type': 'application/json', 
               },
               body: JSON.stringify(new_project)
           });
