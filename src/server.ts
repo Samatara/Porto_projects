@@ -1,25 +1,51 @@
-// import { Hono } from 'hono';
-// import { serve } from '@hono/node-server';
-// import fs from 'fs';
+import { serve } from "@hono/node-server";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { serveStatic } from "@hono/node-server/serve-static";
+import fs from "node:fs/promises";
 
-// const app = new Hono();
+const app = new Hono();
 
-// let projects = JSON.parse(fs.readFileSync('./public/projjson.json', 'utf8')).projects;
-
-
-// app.get('/json', (c) => {
-//   return c.json({ projects });
-// });
+app.use("/*", cors());
 
 
-// app.post('/json', async (c) => {
-//   const newProject = await c.req.json();
-//   projects.push(newProject);
+app.use("/static/*", serveStatic({ root: "./" }));
+
+
+async function loadProjects() {
+    const data = await fs.readFile("./src/projson.json", "utf8");
+    return JSON.parse(data).projects;
+}
+
+
+async function saveProjects(projects: any) {
+    await fs.writeFile("./src/projson.json", JSON.stringify({ projects }, null, 2));
+}
+
+
+app.get("/json", async (c) => {
+    console.log("dkddd");
+  const projects = await loadProjects();
+  return c.json({ projects });
+});
+
+
+app.post("/add", async (c) => {
+  const newProject = await c.req.json();
+  const projects = await loadProjects(); 
 
   
-//   fs.writeFileSync('./public/projjson.json', JSON.stringify({ projects }, null, 2));
+  projects.push(newProject);
 
-//   return c.json(newProject);
-// });
 
-// serve(app, { port: 3999 });
+  await saveProjects(projects);
+
+  return c.json(newProject, 201); 
+});
+
+const port = 4092;
+console.log(`Server is running on port ${port}`);
+serve({
+  fetch: app.fetch,
+  port,
+});
