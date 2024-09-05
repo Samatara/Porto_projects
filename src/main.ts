@@ -33,8 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
         pro_list.innerHTML = '';
 
         
-        projectArray.forEach((project: Project) => {
+        projectArray.forEach((project: Project, index: number) => {
           const pro_div = document.createElement('div');
+          pro_div.id = `project_boxes-${index}`;
           const p_title = document.createElement('h2');
           p_title.textContent = project.name;
           const p_description = document.createElement('p');
