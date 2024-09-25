@@ -2,7 +2,7 @@ import React from 'react';
 import type { Project as ProjectProps } from './types';
 
 interface ProjectListProps {
-  projects: ProjectProps[]; // Use 'projects' to match the prop in the component
+  projects: ProjectProps[]; 
 }
 
 const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {

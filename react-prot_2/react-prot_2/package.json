@@ -4,18 +4,23 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev:frontend": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "ts-node src/server.tsx",
-    "build:server": "tsc src/server.tsx --outDir dist/server" 
+    "server": "tsx --watch ./src/server.ts",
+    "dev": "concurrently -n frontend,server -c green,blue \"npm run dev:frontend\" \"npm run server\""
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "Typescript": "npm:typescript@^5.6.2",
+    "@hono/node-server": "^1.12.2",
+    "hono": "^4.5.11"
   },
   "devDependencies": {
+    "concurrently": "8.2.2",
+    "tsx": "^4.19.0",
     "@eslint/js": "^9.9.0",
     "@types/node": "^22.7.1",
     "@types/react": "^18.3.7",
@@ -26,8 +31,13 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
   }
+  
+
+
+
 }
