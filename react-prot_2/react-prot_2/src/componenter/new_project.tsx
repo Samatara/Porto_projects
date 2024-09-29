@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
+import type { Project} from './types';
 
-interface Project {
-  name: string;
-  description: string;
-  created_date: string;
-}
+
 
 interface NewProjectFormProps {
   addProject: (project: Project) => void;
