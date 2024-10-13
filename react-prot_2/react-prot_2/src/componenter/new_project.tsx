@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import type { Project} from './types';
-
-
+import type { Project } from './types';
 
 interface NewProjectFormProps {
   addProject: (project: Project) => void;
@@ -22,7 +20,7 @@ const NewProjectForm: React.FC<NewProjectFormProps> = ({ addProject }) => {
 
     addProject(newProject);
 
-    setName(''); 
+    setName('');
     setDescription('');
   };
 

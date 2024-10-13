@@ -1,0 +1,123 @@
+:root {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  color: #333; /* Dark text color for better readability */
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+header {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #222; /* Darker text for header */
+}
+
+main {
+  background: #fff; /* White background for main content */
+  padding: 20px;
+  max-width: 1200px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex; /* Use flexbox */
+  justify-content: space-between; /* Align items to the left and right */
+}
+
+#pro_list {
+  flex: 3; /* Pro list takes more space */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+#New-project {
+  flex: 1; /* New project takes less space */
+  background: #eaeaea; /* Light gray background for new project section */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #222; /* Consistent dark color for headings */
+}
+
+form {
+  padding: 20px 0;
+}
+
+form label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+  color: #333; /* Dark text color for labels */
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc; /* Light gray border */
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s;
+}
+
+form input:focus, form textarea:focus {
+  border-color: #007bff; /* Blue border on focus */
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* Blue background for buttons */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+@media (max-width: 700px) {
+  header {
+    font-size: 28px;
+  }
+
+  h1, h2 {
+    font-size: 24px;
+  }
+
+  main {
+    flex-direction: column; /* Stack elements on small screens */
+  }
+
+  #pro_list {
+    grid-template-columns: repeat(2, 1fr); /* Adjust grid for smaller screens */
+  }
+}

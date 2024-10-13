@@ -1,56 +1,67 @@
 import { useEffect, useState } from 'react';
 import ProjectList from './List';
 import NewProjectForm from './new_project';
-
+import { getProjects, addProject, removeProject } from '../services/ProjectApi';
 import type {Project as ProjectProps} from './types'
 
 
 function Page() {
   const [projects, setProjects] = useState<ProjectProps[]>([]);
+  const [loading, setLoading]= useState<boolean> (true);
+  const [error, setError] = useState<string | null>(null);
 
-  
   const loadProjects = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const response = await fetch('http://127.0.0.1:4093/json'); 
-      const data = await response.json();
-      setProjects(data.projects);
+      const data = await getProjects();
+      setProjects(data);
     } catch (error) {
-      console.error('Error loading projects:', error);
+      setError('Failed to load projects');
+    } finally {
+      setLoading(false);
     }
   };
-
 
   useEffect(() => {
     loadProjects();
   }, []);
 
-  const addProject = async (newProject: ProjectProps) => {
+  const handleAddProject = async (newProject: ProjectProps) => {
+    const addedProject = await addProject(newProject);
+    if (addedProject) {
+      setProjects((prevProjects) => [...prevProjects, addedProject]);
+    } else {
+      // Håndter eventuelle feil, f.eks. vis en melding til brukeren
+      setError('Failed to add project');
+    }
+  };
+  const handleRemoveProject = async (name: string) => {
     try {
-      const response = await fetch('http://127.0.0.1:4093/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newProject),
-      });
-
-      if (response.ok) {
-        setProjects([...projects, newProject]);
-      } else {
-        console.error('Error adding project');
-      }
+      await removeProject(name); // Kaller API for å fjerne prosjektet
+      setProjects((prevProjects) =>
+        prevProjects.filter((project) => project.name !== name)
+      );
     } catch (error) {
-      console.error('Error adding project:', error);
+      setError('Failed to remove project');
     }
   };
 
   return (
     <div className="App">
-      <header>Portofolio</header>
+      <header>Portfolio</header>
       <h1>All Projects</h1>
-      <ProjectList projects={projects} />
+
+      {loading ? (
+        <p>Loading projects...</p>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : (
+        <ProjectList projects={projects} removeprojects={handleRemoveProject} />
+      )}
+
       <h2>Create a new project</h2>
-      <NewProjectForm addProject={addProject} />
+      <NewProjectForm addProject={handleAddProject} />
     </div>
   );
 }

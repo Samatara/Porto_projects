@@ -32,6 +32,20 @@ app.post('/add', async (c) => {
   return c.json(newProject, 201);
 });
 
+app.delete('/projects/:name', async (c) => {
+  const name = c.req.param('name');
+  let projects = await loadProjects();
+  const projectIndex = projects.findIndex((project: { name: string; }) => project.name === name);
+
+  if (projectIndex !== -1) {
+    projects.splice(projectIndex, 1);
+    await saveProjects(projects);
+    return c.json({ message: 'Project deleted' }, 200);
+  } else {
+    return c.json({ error: 'Project not found' }, 404);
+  }
+});
+
 const port = 4093;
 console.log(`Server is running on port ${port}`);
 serve({
