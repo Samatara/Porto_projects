@@ -26,9 +26,9 @@ export const addProject = async (newProject: Partial<Project>): Promise<Project 
     }
   
     const data = await response.json();
-    console.log("Response from server:", data); // Logg svaret fra serveren
+    console.log("Response from server:", data); 
   
-    return data; // Returner hele dataobjektet, ikke bare data.project
+    return data; 
   };
   
 

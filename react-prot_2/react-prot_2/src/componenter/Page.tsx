@@ -32,13 +32,13 @@ function Page() {
     if (addedProject) {
       setProjects((prevProjects) => [...prevProjects, addedProject]);
     } else {
-      // Håndter eventuelle feil, f.eks. vis en melding til brukeren
+      
       setError('Failed to add project');
     }
   };
   const handleRemoveProject = async (name: string) => {
     try {
-      await removeProject(name); // Kaller API for å fjerne prosjektet
+      await removeProject(name); 
       setProjects((prevProjects) =>
         prevProjects.filter((project) => project.name !== name)
       );
