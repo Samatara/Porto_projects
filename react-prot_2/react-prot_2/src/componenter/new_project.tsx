@@ -25,6 +25,7 @@ const NewProjectForm: React.FC<NewProjectFormProps> = ({ addProject }) => {
   };
 
   return (
+    <section className='form_section'>
     <form id="project-form" onSubmit={handleSubmit}>
       <label htmlFor="name">Project Name:</label>
       <input
@@ -45,6 +46,7 @@ const NewProjectForm: React.FC<NewProjectFormProps> = ({ addProject }) => {
 
       <button type="submit">Create Project</button>
     </form>
+    </section>
   );
 };
 

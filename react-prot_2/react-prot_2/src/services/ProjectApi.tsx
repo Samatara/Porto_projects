@@ -1,9 +1,10 @@
 import type { Project } from '../componenter/types';
+import { endpoints } from "../config/urls";
 
-const API_URL = 'http://127.0.0.1:4093';
+// const API_URL = endpoints.projects;
 
 export const getProjects = async (): Promise<Project[]> => {
-  const response = await fetch(`${API_URL}/json`);
+  const response = await fetch(endpoints.projects);
   if (!response.ok) {
     throw new Error('Failed to fetch projects');
   }
@@ -12,7 +13,7 @@ export const getProjects = async (): Promise<Project[]> => {
 };
 
 export const addProject = async (newProject: Partial<Project>): Promise<Project | null> => {
-    const response = await fetch(`${API_URL}/add`, {
+    const response = await fetch(endpoints.addProject, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,11 +34,12 @@ export const addProject = async (newProject: Partial<Project>): Promise<Project 
   
 
 export const removeProject = async (name: string): Promise<void> => {
-  const response = await fetch(`http://127.0.0.1:4093/projects/${name}`, {
+  try {
+    await fetch(endpoints.removeProject(name), {
     method: 'DELETE',
   });
-
-  if (!response.ok) {
-    throw new Error('Failed to remove project');
+  } catch (error){
+    console.error(('Failed to remove project'));
+    throw error;
   }
 };
