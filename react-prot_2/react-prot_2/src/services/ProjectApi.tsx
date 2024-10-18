@@ -1,16 +1,27 @@
 import type { Project } from '../componenter/types';
 import { endpoints } from "../config/urls";
+import { projectsSchema } from "../helpers/validate"
 
 // const API_URL = endpoints.projects;
 
 export const getProjects = async (): Promise<Project[]> => {
-  const response = await fetch(endpoints.projects);
-  if (!response.ok) {
-    throw new Error('Failed to fetch projects');
-  }
-  const data = await response.json();
-  return data.projects;
-};
+    const response = await fetch(endpoints.projects);  
+    if (!response.ok) {
+      throw new Error('Failed to fetch projects');
+    }
+    const data = await response.json();
+  
+    
+    const parsedProjects = projectsSchema.safeParse(data.projects);
+    console.log(projectsSchema.safeParse(data.projects));
+  
+    if (!parsedProjects.success) {
+      console.error('Validation failed:', parsedProjects.error.format());
+      throw new Error('Invalid project data');
+    }
+  
+    return parsedProjects.data; 
+  };
 
 export const addProject = async (newProject: Partial<Project>): Promise<Project | null> => {
     const response = await fetch(endpoints.addProject, {

@@ -1,7 +1,6 @@
 
 import { useCallback, useEffect, useState } from 'react';
-import ProjectList from '../componenter/List';
-import NewProjectForm from '../componenter/new_project';
+
 import { getProjects, addProject, removeProject } from '../services/ProjectApi';
 
 import type {Project as ProjectProps} from '../componenter/types'
