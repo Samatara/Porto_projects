@@ -4,6 +4,7 @@ import { z } from "zod";
 const projectSchema = z.object({
   name: z.string(),
   description: z.string(),
+  State: z.boolean(),
   created_date: z.string().datetime(),  
 });
 

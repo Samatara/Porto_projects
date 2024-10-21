@@ -36,8 +36,12 @@ export function useProjects(){
   const handleAddProject = async (newProject: ProjectProps) => {
     try {
       setLoading(true);
-      await addProject(newProject);
-      await loadProjects(); 
+      const addedProject = await addProject(newProject);
+      
+      if (addedProject) {
+    
+        setProjects((prevProjects) => [...prevProjects, addedProject]);
+      }
     } catch (error) {
       setError('Failed to add project');
     } finally {

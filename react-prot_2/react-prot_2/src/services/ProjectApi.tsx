@@ -13,15 +13,19 @@ export const getProjects = async (): Promise<Project[]> => {
   
     
     const parsedProjects = projectsSchema.safeParse(data.projects);
-    console.log(projectsSchema.safeParse(data.projects));
+    console.log(projectsSchema.safeParse(data.projects))
   
     if (!parsedProjects.success) {
       console.error('Validation failed:', parsedProjects.error.format());
       throw new Error('Invalid project data');
     }
   
-    return parsedProjects.data; 
-  };
+    return parsedProjects.data.map((project: Partial<Project>) => ({
+        ...project,
+        State: project.State !== undefined ? project.State : false, 
+      })) as Project[];
+    }; 
+  
 
 export const addProject = async (newProject: Partial<Project>): Promise<Project | null> => {
     const response = await fetch(endpoints.addProject, {

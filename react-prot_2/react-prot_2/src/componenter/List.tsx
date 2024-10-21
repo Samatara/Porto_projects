@@ -16,6 +16,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, removeprojects}) =>
         <div key={index} className="project-box">
           <h2>{project.name}</h2>
           <p>{project.description}</p>
+          <p>
+                Status: {project.State ? 'Public' : 'private'}
+              </p>
           <p>Created on: {new Date(project.created_date).toLocaleDateString()}</p>
           <button onClick={()=> removeprojects(project.name)} className="remove-button">Remove project</button>
         </div>

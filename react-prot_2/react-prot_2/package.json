@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "tsx --watch ./src/server.ts",
+    "server": "tsx --watch ./src/backend/server.ts",
     "dev": "concurrently -n frontend,server -c green,blue \"npm run dev:frontend\" \"npm run server\""
   },
   "dependencies": {

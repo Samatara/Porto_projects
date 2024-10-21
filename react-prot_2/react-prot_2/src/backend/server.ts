@@ -11,12 +11,12 @@ app.use('/*', cors());
 app.use('/static/*', serveStatic({ root: './' }));
 
 async function loadProjects() {
-  const data = await readFile('./src/projson.json', 'utf8');
+  const data = await readFile('./src/backend/projson.json', 'utf8');
   return JSON.parse(data).projects;
 }
 
 async function saveProjects(projects: any) {
-  await writeFile('./src/projson.json', JSON.stringify({ projects }, null, 2));
+  await writeFile('./src/backend/projson.json', JSON.stringify({ projects }, null, 2));
 }
 
 app.get('/json', async (c) => {

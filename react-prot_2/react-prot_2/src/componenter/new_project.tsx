@@ -8,13 +8,17 @@ interface NewProjectFormProps {
 const NewProjectForm: React.FC<NewProjectFormProps> = ({ addProject }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [isPublic, setIspublic] = useState<boolean>(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+
 
     const newProject: Project = {
       name,
       description,
+      State:isPublic,
       created_date: new Date().toISOString(),
     };
 
@@ -22,6 +26,7 @@ const NewProjectForm: React.FC<NewProjectFormProps> = ({ addProject }) => {
 
     setName('');
     setDescription('');
+    setIspublic(false)
   };
 
   return (
@@ -43,7 +48,10 @@ const NewProjectForm: React.FC<NewProjectFormProps> = ({ addProject }) => {
         onChange={(e) => setDescription(e.target.value)}
         required
       />
-
+      <label htmlFor="State">Public</label>
+      <input type="checkbox" id="State" name="State" 
+      checked={isPublic} 
+      onChange={(e) => setIspublic(e.target.checked)}/>
       <button type="submit">Create Project</button>
     </form>
     </section>
