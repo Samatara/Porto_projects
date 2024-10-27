@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from "react";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
+import React from "react";
 
 type LayoutProps = PropsWithChildren;
 

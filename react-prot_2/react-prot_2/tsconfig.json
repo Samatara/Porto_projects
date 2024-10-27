@@ -1,7 +1,20 @@
 {
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext"],
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@t3-oss/env-core": ["node_modules/@t3-oss/env-core/dist/index.d.ts"]
+    }
+  },
+  "include": [],
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    { "path": "./tsconfig.app.json" }, // For frontend configurations
+    { "path": "./tsconfig.node.json" } // For backend configurations
   ]
 }

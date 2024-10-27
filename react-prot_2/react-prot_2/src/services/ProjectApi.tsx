@@ -5,47 +5,55 @@ import { projectsSchema } from "../helpers/validate"
 // const API_URL = endpoints.projects;
 
 export const getProjects = async (): Promise<Project[]> => {
-    const response = await fetch(endpoints.projects);  
-    if (!response.ok) {
-      throw new Error('Failed to fetch projects');
-    }
-    const data = await response.json();
+  const response = await fetch(endpoints.projects);
+  if (!response.ok) {
+    throw new Error('Failed to fetch projects');
+  }
   
-    
-    const parsedProjects = projectsSchema.safeParse(data.projects);
-    console.log(projectsSchema.safeParse(data.projects))
+  const data = await response.json();
+  console.log("Server response data:", data);
+
   
-    if (!parsedProjects.success) {
-      console.error('Validation failed:', parsedProjects.error.format());
-      throw new Error('Invalid project data');
-    }
+  const parsedProjects = projectsSchema.safeParse(data);
+
+  if (!parsedProjects.success) {
+    console.error('Validation failed:', parsedProjects.error.format());
+    throw new Error('Invalid project data');
+  }
+
   
-    return parsedProjects.data.map((project: Partial<Project>) => ({
-        ...project,
-        State: project.State !== undefined ? project.State : false, 
-      })) as Project[];
+  return parsedProjects.data.projects.map((project: Partial<Project>) => ({
+    ...project,
+    State: project.State !== undefined ? project.State : false, 
+  })) as Project[];
     }; 
   
 
-export const addProject = async (newProject: Partial<Project>): Promise<Project | null> => {
-    const response = await fetch(endpoints.addProject, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newProject),
-    });
-  
-    if (!response.ok) {
-      console.error('Error adding project:', response.statusText);
-      return null;
-    }
-  
-    const data = await response.json();
-    console.log("Response from server:", data); 
-  
-    return data; 
-  };
+    export const addProject = async (newProject: Partial<Project>): Promise<Project | null> => {
+      console.log("Sending project data to server:", newProject);
+      try {
+        const response = await fetch(endpoints.addProject, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newProject),
+        });
+    
+        if (!response.ok) {
+          console.error('Error adding project:', response.statusText);
+          return null;
+        }
+    
+        const data = await response.json();
+        console.log("Response from server:", data);
+    
+        return data;
+      } catch (error) {
+        console.error("Error in addProject fetch request:", error);
+        return null;
+      }
+    };
   
 
 export const removeProject = async (name: string): Promise<void> => {

@@ -21,6 +21,7 @@ export function useProjects(){
     setError(null);
     try {
       const data = await getProjects();
+      console.log("Fetched projects data:", data);
       setProjects(data);
     } catch (error) {
       setError('Failed to load projects');
@@ -39,8 +40,9 @@ export function useProjects(){
       const addedProject = await addProject(newProject);
       
       if (addedProject) {
-    
-        setProjects((prevProjects) => [...prevProjects, addedProject]);
+        await loadProjects();
+      } else{
+        console.warn('No project was added'); 
       }
     } catch (error) {
       setError('Failed to add project');
