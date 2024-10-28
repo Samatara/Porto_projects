@@ -1,0 +1,13 @@
+form {
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  form label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+    color: #333; 
+  }
+  

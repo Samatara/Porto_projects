@@ -5,6 +5,7 @@
 // import type {Project as ProjectProps} from './types'
 import Layout from './Layout';
 import Page from './Page';
+import React from 'react';
 
 
 function App() {

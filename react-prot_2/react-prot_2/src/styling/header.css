@@ -1,0 +1,14 @@
+header {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #222;
+    text-align: center;
+  }
+  
+  @media (max-width: 700px) {
+    header {
+      font-size: 28px;
+    }
+  }
+  
