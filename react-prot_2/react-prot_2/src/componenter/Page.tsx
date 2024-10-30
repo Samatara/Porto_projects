@@ -9,7 +9,7 @@ function Page() {
 
   return (
     <div className="App">
-      <header>Portfolio</header>
+      <header>PROJECT MANAGEMENT</header>
       <h1>All Projects</h1>
 
       {isLoading ? ( 
