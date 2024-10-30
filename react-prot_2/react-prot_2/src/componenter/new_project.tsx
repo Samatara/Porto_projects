@@ -48,7 +48,7 @@ const NewProjectForm: React.FC<NewProjectFormProps> = ({ addProject }) => {
         onChange={(e) => setDescription(e.target.value)}
         required
       />
-      <label htmlFor="State">Public</label>
+      <label htmlFor="State">public</label>
       <input type="checkbox" id="State" name="State" 
       checked={isPublic} 
       onChange={(e) => setIspublic(e.target.checked)}/>

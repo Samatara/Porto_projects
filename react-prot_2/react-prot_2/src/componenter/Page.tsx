@@ -5,7 +5,7 @@ import React from 'react';
 
 function Page() {
   
-  const { projects, isLoading, isError, handleAddProject, handleRemoveProject } = useProjects();
+  const { projects, isLoading, isError, handleAddProject, handleRemoveProject,handleUpdateProject} = useProjects();
 
   return (
     <div className="App">
@@ -17,7 +17,7 @@ function Page() {
       ) : isError ? ( 
         <p className="error">Failed to load projects</p>
       ) : (
-        <ProjectList projects={projects} removeprojects={handleRemoveProject} />
+        <ProjectList projects={projects} removeprojects={handleRemoveProject} updateProject={handleUpdateProject} />
       )}
 
       <h2>Create a new project</h2>

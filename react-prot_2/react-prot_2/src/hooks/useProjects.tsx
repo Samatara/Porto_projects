@@ -1,7 +1,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { getProjects, addProject, removeProject } from '../services/ProjectApi';
+import { getProjects, addProject, removeProject, updateProject } from '../services/ProjectApi';
 
 import type {Project as ProjectProps} from '../componenter/types'
 
@@ -62,6 +62,16 @@ export function useProjects(){
         setLoading(false)
     }
   };
+  const handleUpdateProject = async (name: string, updatedProject: ProjectProps): Promise<boolean> => {
+    try {
+      await updateProject(name, updatedProject);
+      await loadProjects(); 
+      return true; 
+    } catch (error) {
+      console.error("Failed to update project:", error);
+      return false; 
+    }
+  };
 
   return {
     projects,
@@ -69,6 +79,7 @@ export function useProjects(){
     isError,    
     handleAddProject,
     handleRemoveProject,
+    handleUpdateProject
   };
 }
 export default useProjects;

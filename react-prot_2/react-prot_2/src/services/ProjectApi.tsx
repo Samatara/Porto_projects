@@ -54,6 +54,32 @@ export const getProjects = async (): Promise<Project[]> => {
         return null;
       }
     };
+
+    export const updateProject = async (name: string, updatedProject: Partial<Project>): Promise<Project | null> => {
+      console.log("Updating project on server:", updatedProject);
+      try {
+        const response = await fetch(endpoints.updateProject(name), {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedProject),
+        });
+    
+        if (!response.ok) {
+          console.error('Error updating project:', response.statusText);
+          return null;
+        }
+    
+        const data = await response.json();
+        console.log("Update response from server:", data);
+        return data;
+      } catch (error) {
+        console.error("Error in updateProject fetch request:", error);
+        return null;
+      }
+    };
+    
   
 
 export const removeProject = async (name: string): Promise<void> => {
@@ -66,3 +92,5 @@ export const removeProject = async (name: string): Promise<void> => {
     throw error;
   }
 };
+
+

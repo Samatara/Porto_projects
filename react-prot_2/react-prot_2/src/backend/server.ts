@@ -66,6 +66,30 @@ app.delete('/projects/:name', async (c) => {
     return c.json({ error: 'Failed to delete project' }, 500);
   }
 });
+app.put('/update/:name', async (c) => {
+  try {
+    const { name } = c.req.param();
+    const { description, State, created_date } = await c.req.json();
+    
+    const stmt = db.prepare(`
+      UPDATE projects
+      SET description = ?, State = ?, created_date = ?
+      WHERE name = ?
+    `);
+    const result = stmt.run(description, State ? 1 : 0, created_date, name);
+
+    if (result.changes === 0) {
+      console.log(`No project found with name: ${name}`);
+      return c.json({ error: 'Project not found' }, 404);
+    }
+
+    return c.json({ message: 'Project updated successfully' }, 200);
+  } catch (error) {
+    console.error('Error updating project:', error);
+    return c.json({ error: 'Failed to update project' }, 500);
+  }
+});
+
 
 const port = 4093;
 console.log(`Server is running on port ${port}`);
